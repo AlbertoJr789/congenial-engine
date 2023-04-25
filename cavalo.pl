@@ -1,6 +1,6 @@
 criaTabuleiro(N,Tab) :- N > 0, criaTabuleiro(N,N,Acc,Tab).
 criaTabuleiro(0,_,Acc,Tab) :- Tab = Acc.
-criaTabuleiro(X,N,Acc,Tab) :- length(L,N), X1 is X - 1, criaTabuleiro(X1,N,[L|Acc],Tab).
+criaTabuleiro(X,N,Acc,Tab) :- length(L,N), maplist(=(0),L), X1 is X - 1, criaTabuleiro(X1,N,[L|Acc],Tab).
 
 imprimeTab(Tab) :-
    imprimeLinha(Tab).
@@ -28,55 +28,67 @@ programa :- write('Defina o tamanho do tabuleiro: '),
             nl,
             imprimeTab(Tab).
 
-saltosCavalo(Tab,Lin,Col) :- faz_o_L(Lin,Col,Tab,1).
+saltosCavalo(Tab,Lin,Col) :- Saltos is 0,
+                             repeat,
+                             faz_o_L(Lin,Col,Tab,Saltos), 
+                             Saltos is Lin * Lin, ! ; fail.
+                        
 
 faz_o_L(Lin,Col,Tab,Salto) :- LinAux is Lin - 2, 
-                              ColAux is Col -1, 
-                              atualiza((LinAux,ColAux),Salto,Tab,NovaTab), 
-                              Salto is Salto + 1,
-                              Tab = NovaTab , !.
-
-faz_o_L(Lin,Col,Tab,Salto) :- LinAux is Lin - 2, 
-                              ColAux is Col + 1, 
-                              atualiza((LinAux,ColAux),Salto,Tab,NovaTab), 
-                              Salto is Salto + 1,
-                              Tab = NovaTab , !.
-
-faz_o_L(Lin,Col,Tab,Salto) :- LinAux is Lin - 1, 
-                              ColAux is Col - 2, 
-                              atualiza((LinAux,ColAux),Salto,Tab,NovaTab), 
-                              Salto is Salto + 1,
-                              Tab = NovaTab , !.
-
-faz_o_L(Lin,Col,Tab,Salto) :- LinAux is Lin - 1, 
-                              ColAux is Col + 2, 
-                              atualiza((LinAux,ColAux),Salto,Tab,NovaTab), 
-                              Salto is Salto + 1,
-                              Tab = NovaTab , !.
-
-faz_o_L(Lin,Col,Tab,Salto) :- LinAux is Lin + 1, 
-                              ColAux is Col - 2, 
-                              atualiza((LinAux,ColAux),Salto,Tab,NovaTab), 
-                              Salto is Salto + 1,
-                              Tab = NovaTab , !.
-
-faz_o_L(Lin,Col,Tab,Salto) :- LinAux is Lin + 1, 
-                              ColAux is Col + 2, 
-                              atualiza((LinAux,ColAux),Salto,Tab,NovaTab), 
-                              Salto is Salto + 1,
-                              Tab = NovaTab , !.
-
-faz_o_L(Lin,Col,Tab,Salto) :- LinAux is Lin + 2, 
                               ColAux is Col - 1, 
-                              atualiza((LinAux,ColAux),Salto,Tab,NovaTab), 
-                              Salto is Salto + 1,
-                              Tab = NovaTab , !.
+                              ProxSalto is Salto + 1,
+                              atualiza((LinAux,ColAux),ProxSalto,Tab,NovaTab), !,
+                              Tab = NovaTab,
+                              Salto is ProxSalto.
+
+faz_o_L(Lin,Col,Tab,Salto) :- LinAux is Lin - 2, 
+                              ColAux is Col + 1,
+                              ProxSalto is Salto + 1,
+                              atualiza((LinAux,ColAux),ProxSalto,Tab,NovaTab), !,
+                              Tab = NovaTab,
+                              Salto is ProxSalto.
+
+faz_o_L(Lin,Col,Tab,Salto) :- LinAux is Lin - 1, 
+                              ColAux is Col - 2, 
+                              ProxSalto is Salto + 1,
+                              atualiza((LinAux,ColAux),ProxSalto,Tab,NovaTab), !, 
+                              Tab = NovaTab,
+                              Salto is ProxSalto.
+
+faz_o_L(Lin,Col,Tab,Salto) :- LinAux is Lin - 1, 
+                              ColAux is Col + 2,
+                              ProxSalto is Salto + 1, 
+                              atualiza((LinAux,ColAux),ProxSalto,Tab,NovaTab), !,
+                              Tab = NovaTab,
+                              Salto is ProxSalto.
+
+faz_o_L(Lin,Col,Tab,Salto) :- LinAux is Lin + 1, 
+                              ColAux is Col - 2, 
+                              ProxSalto is Salto + 1,
+                              atualiza((LinAux,ColAux),ProxSalto,Tab,NovaTab), !, 
+                              Tab = NovaTab,
+                              Salto is ProxSalto.
+
+faz_o_L(Lin,Col,Tab,Salto) :- LinAux is Lin + 1, 
+                              ColAux is Col + 2,
+                              ProxSalto is Salto + 1, 
+                              atualiza((LinAux,ColAux),ProxSalto,Tab,NovaTab), !, 
+                              Tab = NovaTab,
+                              Salto is ProxSalto.
 
 faz_o_L(Lin,Col,Tab,Salto) :- LinAux is Lin + 2, 
-                              ColAux is Col + 1, 
-                              atualiza((LinAux,ColAux),Salto,Tab,NovaTab), 
-                              Salto is Salto + 1,
-                              Tab = NovaTab , !.
+                              ColAux is Col - 1,
+                              ProxSalto is Salto + 1, 
+                              atualiza((LinAux,ColAux),ProxSalto,Tab,NovaTab), !, 
+                              Tab = NovaTab,
+                              Salto is ProxSalto.
+
+faz_o_L(Lin,Col,Tab,Salto) :- LinAux is Lin + 2, 
+                              ColAux is Col + 1,
+                              ProxSalto is Salto + 1, 
+                              atualiza((LinAux,ColAux),ProxSalto,Tab,NovaTab), !,
+                              Tab = NovaTab,
+                              Salto is ProxSalto.
 
 atualiza((Lin,Col), N, [L|R], TabAtual) :-
    Lin =:= 0,
@@ -90,6 +102,7 @@ atualiza((Lin,Col), N, [L|R], TabAtual) :-
 
 atualizaCol([X|R],Col,N,NovaLin):-
    Col =:= 0,
+   X =:= 0,
    NovaLin = [N|R].
 
 atualizaCol([X|R],Col,N,NovaLin):-
