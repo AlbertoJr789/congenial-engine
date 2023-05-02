@@ -157,12 +157,20 @@ solucao_problema('fonte_nao_fornece_energia_suficiente_aos_componentes',Sol) :- 
 
 consultarProblema :-
                   write(''),
-                  write('Digite o problema que o seu computador possui: '), nl,
+                  write('Digite o problema que o seu computador possui.'), nl,
                   write('Exemplo: computador nao liga. '), nl,
                   write('O problema deve ter "." no final'), nl,
                   write('Para finalizar a entrada de dados, entre com: "f."'), nl,
                   write('Para sair do programa: "sair."'), nl,
+                  write('Problemas: '), nl,
+                  listarProblemas,
                   lerProblemas([]).
+                  
+listarProblemas :-
+    problema(X),
+    write(X), nl,
+    fail.
+listarProblemas.
                   
 lerProblemas(Problemas):-
 read(Problema), identificarProblemas(Problema,Problemas).
