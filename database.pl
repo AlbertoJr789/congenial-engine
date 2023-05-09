@@ -10,6 +10,19 @@ problema('impressora_nao_imprime').
 problema('hora_do_computador_desregulada').
 problema('computador_sem_internet').
 
+problema('super_aquecimento_do_computador').
+problema('lentidao_no_computador').
+problema('tela_azul_da_morte').
+problema('falha_no_disco_rigido_ou_SSD').
+problema('falta_de_espaco_no_disco_rigido').
+problema('virus_ou_malware_no_computador').
+problema('som_nao_funcionando_no_computador').
+problema('perda_de_dados').
+problema('falha_na_inicializacao_do_sistema_operacional').
+problema('conflito_de_software').
+problema('tela_piscando_ou_tremendo').
+problema('reinicializacao_inesperada_do_sistema').
+
 /* ----------------------------------------------------------------------- */
 
 
@@ -47,6 +60,10 @@ motivoProblema('impressora_nao_imprime',Prob,Sol) :- problema_impressora(Prob), 
 motivoProblema('hora_do_computador_desregulada',Prob,Sol) :- problema_computador_hora(Prob), solucao_problema(Prob,Sol).
 
 motivoProblema('computador_sem_internet',Prob,Sol) :- problema_computador_internet(Prob), solucao_problema(Prob,Sol).
+
+motivoProblema('super_aquecimento_do_computador',Prob,Sol) :- problema_fonteInsuficiente(Prob), solucao_problema(Prob,Sol).
+
+motivoProblema('lentidao_no_computador',Prob,Sol) :- problema_lentidao(Prob), solucao_problema(Prob,Sol).
 
 /* ----------------------------------------------------------------------- */
 % Fatos que descrevem os possiveis problemas para cada componente da maquina
@@ -107,6 +124,10 @@ problema_roteador('roteador_com_as_configurações_de_rede_incorretas').
 problema_roteador('roteador_com_defeito_na antena').
 problema_roteador('roteador_com_defeito_eletronico').
 
+problema_fonteInsuficiente('fonte_com_poder_insuficiente').
+
+problema_lentidao('lentidao_no_computador').
+
 /* -------------------------------------------------------------------- */
 % Soluções para os problemas
 
@@ -152,6 +173,8 @@ solucao_problema('roteador_com_as_configurações_de_rede_incorretas',Sol) :- So
 solucao_problema('roteador_com_defeito_na_antena',Sol) :- Sol ='Troque a antena ou o roteador'.
 solucao_problema('roteador_com_defeito_eletronico',Sol) :- Sol = 'Troque o roteador'.
 solucao_problema('fonte_nao_fornece_energia_suficiente_aos_componentes',Sol) :- Sol = 'Troque a fonte de alimentacao'.
+solucao_problema('fonte_com_poder_insuficiente',Sol) :- Sol = 'Compre outra fonte'.
+solucao_problema('finalize_os_processos_nao_utilizados',Sol) :- Sol = 'Finalize os processos nao utilizados'.
 
 /* -------------------------------------------------------------------- */
 
