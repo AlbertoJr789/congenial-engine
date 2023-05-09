@@ -108,7 +108,7 @@ problema_roteador('roteador_com_defeito_na antena').
 problema_roteador('roteador_com_defeito_eletronico').
 
 /* -------------------------------------------------------------------- */
-% Soluções para os problemas 
+% Soluções para os problemas
 
 solucao_problema('memoria_ram_com_defeito',Sol) :- Sol ='troque a memoria ram'.
 solucao_problema('memoria_ram_com_defeito',Sol) :- Sol ='limpe a memória ram'.
@@ -165,13 +165,13 @@ consultarProblema :-
                   write('Problemas: '), nl,
                   listarProblemas,
                   lerProblemas([]).
-                  
+
 listarProblemas :-
     problema(X),
     write(X), nl,
     fail.
 listarProblemas.
-                  
+
 lerProblemas(Problemas):-
 read(Problema), identificarProblemas(Problema,Problemas).
 
@@ -181,7 +181,7 @@ identificarProblemas(f,Problemas):-
   (validaTamanhoLista(Problemas),buscarProblemas(Problemas) ; write('Deve ter ao menos um problema na lista. '), nl, lerProblemas(Problemas)).
 
 identificarProblemas(Problema,Problemas):-
-  problema(Problema), lerProblemas([Problema|Problemas]).
+  problema(Problema), (not(pertence(Problema,Problemas)), write('Problema já foi adicionado. '), nl, lerProblemas(Problemas) ; lerProblemas([Problema|Problemas])).
 
 identificarProblemas(Problema,Problemas):-
   validaFatoComParametro(problema(Problema)),
@@ -203,7 +203,7 @@ buscarProblemas(Entrada):-
   write('Digite "f." para finalizar a entrada.'), nl,
   write('Digite "sair." para finalizar o programa.'), nl,
   lerProblemasSecundarios([],Lista).
-  
+
 preencheLista([], []).
 preencheLista([X|T], ListaResultado) :-
     preencheLista(T, ListaTemp),
@@ -213,7 +213,7 @@ preencheLista([X|T], ListaResultado) :-
 listaProblemasSecundarios([X|T]):- length([X|T],Tamanho),
                                     Tamanho > 0, write(X),
                                     nl, listaProblemasSecundarios(T) ;  !.
-                                    
+
 lerProblemasSecundarios(ListaEntrada,ListaProblemas):-
    read(Problema), verificaSeEProblema(Problema, ListaEntrada,ListaProblemas).
 
@@ -223,9 +223,8 @@ verificaSeEProblema(f,ListaEntrada,ListaProblemas):-
 
 verificaSeEProblema(Problema,ListaEntrada,ListaProblemas):-
    member(Problema, ListaProblemas),
-   not(member(Problema, ListaEntrada)),
-   lerProblemasSecundarios([Problema|ListaEntrada],ListaProblemas).
-   
+   (not(pertence(Problema,ListaEntrada)), write('Problema já foi adicionado. '), nl, lerProblemasSecundarios(ListaEntrada,ListaProblemas) ; lerProblemasSecundarios([Problema|ListaEntrada],ListaProblemas)).
+
 verificaSeEProblema(Problema,ListaEntrada,ListaProblemas):-
    member(Problema, ListaProblemas),
    member(Problema, ListaEntrada),
@@ -239,3 +238,6 @@ buscarSolucoes(ListaProblemas) :-
     fail.
 buscarSolucoes(_):- consultarProblema.
 
+pertence(_, []) :- !.
+pertence(X, [X|_]) :- !, fail.
+pertence(X, [_|T]) :- pertence(X, T).
