@@ -9,11 +9,17 @@ problema('mouse_nao_clica').
 problema('impressora_nao_imprime').
 problema('hora_do_computador_desregulada').
 problema('computador_sem_internet').
+problema('super_aquecimento_do_computador').
+problema('lentidao_no_computador').
+problema('tela_azul_da_morte').
+problema('falha_no_disco_rigido_ou_SSD').
+problema('falta_de_espaco_no_disco_rigido').
+problema('virus_ou_malware_no_computador').
+problema('som_nao_funcionando_no_computador').
+problema('defeito_monitor').
+problema('reinicializacao_inesperada_do_sistema').
 
 /* ----------------------------------------------------------------------- */
-
-
-
 
 motivoProblema('computador_nao_liga',Prob,Sol) :- problema_bios(Prob), solucao_problema(Prob,Sol).
 motivoProblema('computador_nao_liga',Prob,Sol) :- problema_ram(Prob), solucao_problema(Prob,Sol).
@@ -47,6 +53,26 @@ motivoProblema('impressora_nao_imprime',Prob,Sol) :- problema_impressora(Prob), 
 motivoProblema('hora_do_computador_desregulada',Prob,Sol) :- problema_computador_hora(Prob), solucao_problema(Prob,Sol).
 
 motivoProblema('computador_sem_internet',Prob,Sol) :- problema_computador_internet(Prob), solucao_problema(Prob,Sol).
+
+motivoProblema('super_aquecimento_do_computador',Prob,Sol) :- problema_fonteInsuficiente(Prob), solucao_problema(Prob,Sol).
+
+motivoProblema('lentidao_no_computador',Prob,Sol) :- problema_lentidao(Prob), solucao_problema(Prob,Sol).
+
+motivoProblema('tela_azul_da_morte',Prob,Sol) :- problema_telaAzul(Prob), solucao_problema(Prob,Sol).
+
+motivoProblema('falha_no_disco_rigido_ou_SSD',Prob,Sol) :- problema_hdssd(Prob), solucao_problema(Prob,Sol).
+
+motivoProblema('falta_de_espaco_no_disco_rigido',Prob,Sol) :- problema_hdssd_cheio(Prob), solucao_problema(Prob,Sol).
+
+motivoProblema('virus_ou_malware_no_computador',Prob,Sol) :- problema_hdssd(Prob), solucao_problema(Prob,Sol).
+
+motivoProblema('som_nao_funcionando_no_computador',Prob,Sol) :- problema_som(Prob), solucao_problema(Prob,Sol).
+
+motivoProblema('defeito_monitor',Prob,Sol) :- problema_tela(Prob), solucao_problema(Prob,Sol).
+
+motivoProblema('reinicializacao_inesperada_do_sistema',Prob,Sol) :- problema_ram(Prob), solucao_problema(Prob,Sol).
+motivoProblema('reinicializacao_inesperada_do_sistema',Prob,Sol) :- problema_processador(Prob), solucao_problema(Prob,Sol).
+motivoProblema('reinicializacao_inesperada_do_sistema',Prob,Sol) :- problema_fonte('computador nao liga', Prob), solucao_problema(Prob,Sol).
 
 /* ----------------------------------------------------------------------- */
 % Fatos que descrevem os possiveis problemas para cada componente da maquina
@@ -107,11 +133,29 @@ problema_roteador('roteador_com_as_configurações_de_rede_incorretas').
 problema_roteador('roteador_com_defeito_na antena').
 problema_roteador('roteador_com_defeito_eletronico').
 
+problema_fonteInsuficiente('fonte_com_poder_insuficiente').
+
+problema_lentidao('computador_lento').
+
+problema_telaAzul('computador_ou_notebook_com_tela_azul_da_morte').
+
+problema_hdssd('hd_ou_sdd_lento').
+problema_hdssd('hd_ou_sdd_nao_foram_identificados_pelo_SO').
+
+problema_hdssd_cheio('hd_ou_sdd_lotado').
+
+problema_virus('computador_com_virus').
+
+problema_som('caixas_de_som_nao_funciona').
+problema_som('fones_de_ouvido_nao_funciona').
+
+problema_tela('tela_piscando_ou_tremendo').
+
 /* -------------------------------------------------------------------- */
-% Soluções para os problemas 
+% Soluções para os problemas
 
 solucao_problema('memoria_ram_com_defeito',Sol) :- Sol ='troque a memoria ram'.
-solucao_problema('memoria_ram_com_defeito',Sol) :- Sol ='limpe a memória ram'.
+solucao_problema('memoria_ram_com_defeito',Sol) :- Sol ='limpe a memoria ram'.
 solucao_problema('memoria_ram_desencaixada',Sol) :- Sol ='retira e encaixe novamente a memoria'.
 solucao_problema('memoria_ram_suja',Sol) :- Sol ='limpe as memorias com limpa contato'.
 solucao_problema('slot_memoria_ram_com_defeito',Sol) :- Sol ='Troque o slot da placa-mae ou troque de placa-mae'.
@@ -152,6 +196,17 @@ solucao_problema('roteador_com_as_configurações_de_rede_incorretas',Sol) :- So
 solucao_problema('roteador_com_defeito_na_antena',Sol) :- Sol ='Troque a antena ou o roteador'.
 solucao_problema('roteador_com_defeito_eletronico',Sol) :- Sol = 'Troque o roteador'.
 solucao_problema('fonte_nao_fornece_energia_suficiente_aos_componentes',Sol) :- Sol = 'Troque a fonte de alimentacao'.
+solucao_problema('fonte_com_poder_insuficiente',Sol) :- Sol = 'Compre outra fonte'.
+solucao_problema('computador_lento',Sol) :- Sol = 'Finalize os processos nao utilizados'.
+solucao_problema('computador_ou_notebook_com_tela_azul_da_morte',Sol) :- Sol = 'Reinicie o computador'.
+solucao_problema('hd_ou_sdd_lento',Sol) :- Sol = 'Desfragmente seu HD OU SSD'.
+solucao_problema('hd_ou_sdd_nao_foram_identificados_pelo_SO',Sol) :- Sol = 'Verifique se os modulos de armazenamento foram encaixados corretamente'.
+solucao_problema('hd_ou_sdd_lotado',Sol) :- Sol = 'Remova dados nao utilizados no HD OU SSD'.
+solucao_problema('computador_com_virus',Sol) :- Sol = 'Instale um antivirus ou formate o computador'.
+solucao_problema('caixas_de_som_nao_funciona',Sol) :- Sol = 'Verifique se as caixas de som estao conectados corretamente, ou se os drivers de som estão instalados'.
+solucao_problema('fones_de_ouvido_nao_funciona',Sol) :- Sol = 'Verifique se o fone de ouvido esta conectado corretamente, ou se os drivers do fone/som estão instalados'.
+solucao_problema('tela_piscando_ou_tremendo',Sol) :- Sol = 'Troque o monitor, ou verifique se o monitor esta com os leds estao funcionando, ou se ele tem algum outro componente estragado.'.
+
 
 /* -------------------------------------------------------------------- */
 
@@ -165,13 +220,13 @@ consultarProblema :-
                   write('Problemas: '), nl,
                   listarProblemas,
                   lerProblemas([]).
-                  
+
 listarProblemas :-
     problema(X),
     write(X), nl,
     fail.
 listarProblemas.
-                  
+
 lerProblemas(Problemas):-
 read(Problema), identificarProblemas(Problema,Problemas).
 
@@ -181,7 +236,7 @@ identificarProblemas(f,Problemas):-
   (validaTamanhoLista(Problemas),buscarProblemas(Problemas) ; write('Deve ter ao menos um problema na lista. '), nl, lerProblemas(Problemas)).
 
 identificarProblemas(Problema,Problemas):-
-  problema(Problema), lerProblemas([Problema|Problemas]).
+  problema(Problema), (not(pertence(Problema,Problemas)), write('Problema já foi adicionado. '), nl, lerProblemas(Problemas) ; lerProblemas([Problema|Problemas])).
 
 identificarProblemas(Problema,Problemas):-
   validaFatoComParametro(problema(Problema)),
@@ -203,7 +258,7 @@ buscarProblemas(Entrada):-
   write('Digite "f." para finalizar a entrada.'), nl,
   write('Digite "sair." para finalizar o programa.'), nl,
   lerProblemasSecundarios([],Lista).
-  
+
 preencheLista([], []).
 preencheLista([X|T], ListaResultado) :-
     preencheLista(T, ListaTemp),
@@ -213,7 +268,7 @@ preencheLista([X|T], ListaResultado) :-
 listaProblemasSecundarios([X|T]):- length([X|T],Tamanho),
                                     Tamanho > 0, write(X),
                                     nl, listaProblemasSecundarios(T) ;  !.
-                                    
+
 lerProblemasSecundarios(ListaEntrada,ListaProblemas):-
    read(Problema), verificaSeEProblema(Problema, ListaEntrada,ListaProblemas).
 
@@ -223,9 +278,8 @@ verificaSeEProblema(f,ListaEntrada,ListaProblemas):-
 
 verificaSeEProblema(Problema,ListaEntrada,ListaProblemas):-
    member(Problema, ListaProblemas),
-   not(member(Problema, ListaEntrada)),
-   lerProblemasSecundarios([Problema|ListaEntrada],ListaProblemas).
-   
+   (not(pertence(Problema,ListaEntrada)), write('Problema já foi adicionado. '), nl, lerProblemasSecundarios(ListaEntrada,ListaProblemas) ; lerProblemasSecundarios([Problema|ListaEntrada],ListaProblemas)).
+
 verificaSeEProblema(Problema,ListaEntrada,ListaProblemas):-
    member(Problema, ListaProblemas),
    member(Problema, ListaEntrada),
@@ -239,3 +293,6 @@ buscarSolucoes(ListaProblemas) :-
     fail.
 buscarSolucoes(_):- consultarProblema.
 
+pertence(_, []) :- !.
+pertence(X, [X|_]) :- !, fail.
+pertence(X, [_|T]) :- pertence(X, T).
