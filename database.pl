@@ -155,7 +155,6 @@ problema_tela('tela_piscando_ou_tremendo').
 % Soluções para os problemas
 
 solucao_problema('memoria_ram_com_defeito',Sol) :- Sol ='troque a memoria ram'.
-solucao_problema('memoria_ram_com_defeito',Sol) :- Sol ='limpe a memoria ram'.
 solucao_problema('memoria_ram_desencaixada',Sol) :- Sol ='retira e encaixe novamente a memoria'.
 solucao_problema('memoria_ram_suja',Sol) :- Sol ='limpe as memorias com limpa contato'.
 solucao_problema('slot_memoria_ram_com_defeito',Sol) :- Sol ='Troque o slot da placa-mae ou troque de placa-mae'.
@@ -187,7 +186,6 @@ solucao_problema('dispositivo_com_defeito_eletronico',Sol) :- Sol ='Troque o dis
 solucao_problema('papel_agarrado_ou_obstruído',Sol) :- Sol ='Abra a tampa da impressora e retire o papel'.
 solucao_problema('cartucho_entupido_ou_vazio',Sol) :- Sol ='Recarregue ou desentupa o cartucho'.
 solucao_problema('cartucho_queimado',Sol) :- Sol ='Troque o cartucho'.
-solucao_problema('spooler_de_impressão_com_problemas',Sol) :- Sol ='Reinicie o spooler de impressao do sistema operacional'.
 solucao_problema('spooler_de_impressão_com_problemas',Sol) :- Sol ='Reinicie o spooler de impressao do sistema operacional'.
 solucao_problema('bateria_da_placa-mae_descarregada',Sol) :- Sol ='Troque a bateria'.
 solucao_problema('cabo_com_problema_ou_sem_sinal_wi_fi',Sol) :- Sol ='Verifique a integridade do cabo ou sinal do wi-fi com outro dispositivo'.
