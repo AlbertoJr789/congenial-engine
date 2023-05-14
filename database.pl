@@ -105,7 +105,7 @@ problema_monitor('cabo_de_video_com_defeito').
 problema_monitor('monitor_com_defeito_eletronico').
 
 problema_periferico('dispositivo_em_curto').
-problema_periferico('usb_ou_p2_da_placa-mae_com_problema').
+problema_periferico('usb_ou_p2_da_placa_mae_com_problema').
 problema_periferico('usb_ou_p2_do_dispositivo_com_problema').
 problema_periferico('driver_com_problemas').
 problema_periferico('dispositivo_com_defeito_eletronico').
@@ -118,10 +118,10 @@ problema_teclado('teclado_membrana_trilha_da_membrana_pode_estar_rompida').
 problema_mouse('botoes_oxidados_ou_sujos').
 problema_mouse('botoes_queimados').
 
-problema_impressora('papel_agarrado_ou_obstruído').
+problema_impressora('papel_agarrado_ou_obstruido').
 problema_impressora('cartucho_entupido_ou_vazio').
 problema_impressora('cartucho_queimado').
-problema_impressora('spooler_de_impressão_com_problemas').
+problema_impressora('spooler_de_impressao_com_problemas').
 
 problema_computador_hora('bateria_da_placa_mae_descarregada').
 
@@ -129,7 +129,7 @@ problema_computador_internet('cabo_com_problema_ou_sem_sinal_wi_fi').
 problema_computador_internet('provedor_sem_internet').
 problema_computador_internet(X) :- problema_roteador(X).
 
-problema_roteador('roteador_com_as_configurações_de_rede_incorretas').
+problema_roteador('roteador_com_as_configuracoes_de_rede_incorretas').
 problema_roteador('roteador_com_defeito_na antena').
 problema_roteador('roteador_com_defeito_eletronico').
 
@@ -176,21 +176,22 @@ solucao_problema('monitor_com_defeito_eletronico',Sol) :- Sol ='Troque de monito
 solucao_problema('dispositivo_em_curto',Sol) :- Sol ='Troque o dispositivo'.
 solucao_problema('algum_periferico_na_maquina_em_curto_esta_impedindo_o_funcionamento_correto',Sol) :- Sol ='Verifique cada periferico, testando-os individualmente na maquina'.
 solucao_problema('driver_com_problemas',Sol) :- Sol ='Reinstale o driver correto'.
-solucao_problema('usb_ou_p2_da_placa-mae_com_problema',Sol) :- Sol ='Teste o dispositivo em outras portas'.
+solucao_problema('usb_ou_p2_da_placa_mae_com_problema',Sol) :- Sol ='Teste o dispositivo em outras portas'.
+solucao_problema('usb_ou_p2_do_dispositivo_com_problema',Sol) :- Sol ='Teste o dispositivo em outras portas'.
 solucao_problema('teclas_oxidadas_ou_sujas',Sol) :- Sol ='Desmonte o teclado e limpe as teclas com alcool isopropilico'.
 solucao_problema('teclado_mecanico_switch_com_mau_contato_ou_queimado',Sol) :- Sol ='Limpe os switches com limpa contato'.
 solucao_problema('teclado_membrana_trilha_da_membrana_pode_estar_rompida',Sol) :- Sol ='Faca a reconstrucao da trilha ou troque a membrana'.
 solucao_problema('botoes_oxidados_ou_sujos',Sol) :- Sol ='Desmonte o mouse e limpe os botoes com alcool isopropilico'.
 solucao_problema('botoes_queimados',Sol) :- Sol ='Troque o mouse'.
 solucao_problema('dispositivo_com_defeito_eletronico',Sol) :- Sol ='Troque o dispositivo'.
-solucao_problema('papel_agarrado_ou_obstruído',Sol) :- Sol ='Abra a tampa da impressora e retire o papel'.
+solucao_problema('papel_agarrado_ou_obstruido',Sol) :- Sol ='Abra a tampa da impressora e retire o papel'.
 solucao_problema('cartucho_entupido_ou_vazio',Sol) :- Sol ='Recarregue ou desentupa o cartucho'.
 solucao_problema('cartucho_queimado',Sol) :- Sol ='Troque o cartucho'.
-solucao_problema('spooler_de_impressão_com_problemas',Sol) :- Sol ='Reinicie o spooler de impressao do sistema operacional'.
+solucao_problema('spooler_de_impressao_com_problemas',Sol) :- Sol ='Reinicie o spooler de impressao do sistema operacional'.
 solucao_problema('bateria_da_placa-mae_descarregada',Sol) :- Sol ='Troque a bateria'.
 solucao_problema('cabo_com_problema_ou_sem_sinal_wi_fi',Sol) :- Sol ='Verifique a integridade do cabo ou sinal do wi-fi com outro dispositivo'.
 solucao_problema('provedor_sem_internet',Sol) :- Sol ='Contate o seu provedor'.
-solucao_problema('roteador_com_as_configurações_de_rede_incorretas',Sol) :- Sol ='Realize as configuracoes do roteador baseado nas utilizadas pelo provedor'.
+solucao_problema('roteador_com_as_configuracoes_de_rede_incorretas',Sol) :- Sol ='Realize as configuracoes do roteador baseado nas utilizadas pelo provedor'.
 solucao_problema('roteador_com_defeito_na_antena',Sol) :- Sol ='Troque a antena ou o roteador'.
 solucao_problema('roteador_com_defeito_eletronico',Sol) :- Sol = 'Troque o roteador'.
 solucao_problema('fonte_nao_fornece_energia_suficiente_aos_componentes',Sol) :- Sol = 'Troque a fonte de alimentacao'.
