@@ -236,11 +236,11 @@ identificarProblemas(f,Problemas):-
   (validaTamanhoLista(Problemas),buscarProblemas(Problemas) ; write('Deve ter ao menos um problema na lista. '), nl, lerProblemas(Problemas)).
 
 identificarProblemas(Problema,Problemas):-
-  problema(Problema), (not(pertence(Problema,Problemas)), write('Problema já foi adicionado. '), nl, lerProblemas(Problemas) ; lerProblemas([Problema|Problemas])).
+  problema(Problema), (not(pertence(Problema,Problemas)), write('Problema ja foi adicionado. '), nl, lerProblemas(Problemas) ; lerProblemas([Problema|Problemas])).
 
 identificarProblemas(Problema,Problemas):-
   validaFatoComParametro(problema(Problema)),
-  write('O problema desconhecido na base de dados. '),
+  write('O problema desconhecido na base de dados. '), nl,
   lerProblemas(Problemas).
 
 validaFatoComParametro(Predicado) :-
@@ -278,11 +278,10 @@ verificaSeEProblema(f,ListaEntrada,ListaProblemas):-
 
 verificaSeEProblema(Problema,ListaEntrada,ListaProblemas):-
    member(Problema, ListaProblemas),
-   (not(pertence(Problema,ListaEntrada)), write('Problema já foi adicionado. '), nl, lerProblemasSecundarios(ListaEntrada,ListaProblemas) ; lerProblemasSecundarios([Problema|ListaEntrada],ListaProblemas)).
+   (not(pertence(Problema,ListaEntrada)), write('Problema ja foi adicionado. '), nl, lerProblemasSecundarios(ListaEntrada,ListaProblemas) ; lerProblemasSecundarios([Problema|ListaEntrada],ListaProblemas)).
 
 verificaSeEProblema(Problema,ListaEntrada,ListaProblemas):-
-   member(Problema, ListaProblemas),
-   member(Problema, ListaEntrada),
+   not(member(Problema, ListaProblemas)),
    write('O problema desconhecido na base de dados. '), nl,
    lerProblemasSecundarios(ListaEntrada,ListaProblemas).
 
