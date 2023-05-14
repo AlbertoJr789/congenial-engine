@@ -27,6 +27,7 @@ motivoProblema('computador_nao_liga',Prob,Sol) :- problema_ram(Prob), solucao_pr
 motivoProblema('computador_nao_liga',Prob,Sol) :- problema_bateria_mobo(Prob), solucao_problema(Prob,Sol).
 motivoProblema('computador_nao_liga',Prob,Sol) :- problema_processador(Prob), solucao_problema(Prob,Sol).
 motivoProblema('computador_nao_liga',Prob,Sol) :- problema_fonte('computador nao liga', Prob), solucao_problema(Prob,Sol).
+motivoProblema('computador_nao_liga',Prob,Sol) :- problema_fonte(Prob), solucao_problema(Prob,Sol).
 
 motivoProblema('computador_apitando',Prob,Sol) :- problema_ram(Prob), solucao_problema(Prob,Sol).
 
@@ -73,6 +74,7 @@ motivoProblema('defeito_monitor',Prob,Sol) :- problema_tela(Prob), solucao_probl
 motivoProblema('reinicializacao_inesperada_do_sistema',Prob,Sol) :- problema_ram(Prob), solucao_problema(Prob,Sol).
 motivoProblema('reinicializacao_inesperada_do_sistema',Prob,Sol) :- problema_processador(Prob), solucao_problema(Prob,Sol).
 motivoProblema('reinicializacao_inesperada_do_sistema',Prob,Sol) :- problema_fonte('computador nao liga', Prob), solucao_problema(Prob,Sol).
+motivoProblema('reinicializacao_inesperada_do_sistema',Prob,Sol) :- problema_fonte(Prob), solucao_problema(Prob,Sol).
 
 /* ----------------------------------------------------------------------- */
 % Fatos que descrevem os possiveis problemas para cada componente da maquina
@@ -90,7 +92,7 @@ problema_processador('processador_com_defeito').
 problema_processador('processador_desencaixado_do_socket').
 problema_processador('ventoinha_desencaixada_do_processador').
 
-problema_fonte('fonte_de_alimentação_em_curto').
+problema_fonte('fonte_de_alimentacao_em_curto').
 problema_fonte('computador_nao_liga', 'fonte_nao_fornece_energia_suficiente_aos_componentes').
 
 problema_mobo('problema_no_socket_do_processador').
@@ -164,7 +166,7 @@ solucao_problema('bateria_descarregada',Sol) :- Sol ='Troque a bateria'.
 solucao_problema('processador_com_defeito',Sol) :- Sol ='Troque o processador'.
 solucao_problema('processador_desencaixado_do_socket',Sol) :- Sol ='Retire e encaixe o processador no socket corretamente.'.
 solucao_problema('ventoinha_desencaixada_do_processador',Sol) :- Sol ='Retire e encaixe a ventoinha corretamente'.
-solucao_problema('fonte_de_alimentação_em_curto',Sol) :- Sol ='Troque a fonte de alimentacao'.
+solucao_problema('fonte_de_alimentacao_em_curto',Sol) :- Sol ='Troque a fonte de alimentacao'.
 solucao_problema('problema_no_socket_do_processador',Sol) :- Sol ='Realize a troca do socket da placa-mae ou troque de placa-mae'.
 solucao_problema('pino_do_socket_torto',Sol) :- Sol ='Desentorte os pinos cuidadosamente'.
 solucao_problema('problema_no(s)_chipset(s)',Sol) :- Sol ='Troque de placa-mae'.
@@ -251,12 +253,13 @@ validaTamanhoLista(Lista):-
 
 buscarProblemas(Entrada):-
   preencheLista(Entrada,Lista),
+  remove_duplicates(Lista, NovaLista),
   write('Problemas:'), nl,
-  listaProblemasSecundarios(Lista),
+  listaProblemasSecundarios(NovaLista),
   write('Digite os problemas de acordo com os listados com "." no final.'), nl,
   write('Digite "f." para finalizar a entrada.'), nl,
   write('Digite "sair." para finalizar o programa.'), nl,
-  lerProblemasSecundarios([],Lista).
+  lerProblemasSecundarios([],NovaLista).
 
 preencheLista([], []).
 preencheLista([X|T], ListaResultado) :-
@@ -297,3 +300,6 @@ pertence(X, [_|T]) :- pertence(X, T).
 
 tamanhoLista([],0).
 tamanhoLista([_|T],Tam):- tamanhoLista(T,NTam), Tam is NTam +  1.
+
+remove_duplicates([],[]).
+remove_duplicates([X|T], SD):- remove_duplicates(T,R), (not(member(X,R)), SD = [X|R] ; SD = R), !.
