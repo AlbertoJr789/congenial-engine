@@ -1,5 +1,5 @@
 criaTabuleiro(N,Tab) :- N > 0, criaTabuleiro(N,N,[],Tab).
-criaTabuleiro(0,_,Acc,Tab) :- Tab = Acc.
+criaTabuleiro(0,_,Acc,Tab) :- Tab = Acc, !.
 criaTabuleiro(X,N,Acc,Tab) :- length(L,N), maplist(=(0),L), X1 is X - 1, criaTabuleiro(X1,N,[L|Acc],Tab).
 
 imprimeTab(Tab) :-
@@ -19,14 +19,14 @@ programaTeste :- criaTabuleiro(5,Tab),
 
 programa :- write('Defina o tamanho do tabuleiro: '),
             read(N),
-            criaTabuleiro(N,Tab),
+            criaTabuleiro(N,Tab), 
             write('Tabela criada: '),
             nl,
             imprimeTab(Tab),
             nl,
-            write('Defina a linha inicial: '),
+            write('Defina a linha inicial (começa em 0): '),
             read(Lin),
-            write('Defina a coluna inicial: '),
+            write('Defina a coluna inicial (começa em 0): '),
             read(Col),
             nl,
             write('Saltando...'),
@@ -46,15 +46,15 @@ saltosCavalo(Tab,Lin,Col) :- length(Tab,N),
                              Visitados = [(Lin,Col)],
                              prepararSalto(N,NewTab,Lin,Col,2,Visitados).
 
-prepararSalto(N,Tab,Lin,Col,Saltos,Visitados) :- Saltos =:= N*N,write('Resultado apos os saltos: '),nl,imprimeTab(Tab), !;
+prepararSalto(N,Tab,Lin,Col,Saltos,Visitados) :- Saltos =:= N*N + 1,!,write('Resultado apos os saltos: '),nl,imprimeTab(Tab);
                                                  faz_o_L(N,Lin,Col,Tab,Saltos,NewTab,NewLin,NewCol,Visitados,NV),
                                                  NewSaltos is Saltos + 1,
                                                  prepararSalto(N,NewTab,NewLin,NewCol,NewSaltos,NV).
-
+                                                 
 faz_o_L(Tam,Lin,Col,Tab,Salto,NewTab,NewLin,NewCol,Visitados,NV) :- movimento((M5,M6)),
                                                    NewLin is Lin + M5, NewLin >= 0, NewLin < Tam,
                                                    NewCol is Col + M6, NewCol >= 0, NewCol < Tam,
-                                                   \+ member((NewLin,NewCol),Visitados),
+                                                   \+ member((NewLin,NewCol),Visitados), 
                                                    preencheRastro((NewLin,NewCol),Tab,Salto,NewTab,Visitados,NV).
 
 preencheRastro((M5,M6),Tab,S,NewTab,Visitados,VisitadosRastro) :-
