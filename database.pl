@@ -248,7 +248,7 @@ validaFatoComParametro(Predicado) :-
 validaFatoComParametro(_).
 
 validaTamanhoLista(Lista):-
-  length(Lista,Tam), Tam > 0.
+  tamanhoLista(Lista,Tam), Tam > 0.
 
 buscarProblemas(Entrada):-
   preencheLista(Entrada,Lista),
@@ -295,3 +295,6 @@ buscarSolucoes(_):- consultarProblema.
 pertence(_, []) :- !.
 pertence(X, [X|_]) :- !, fail.
 pertence(X, [_|T]) :- pertence(X, T).
+
+tamanhoLista([],0).
+tamanhoLista([_|T],Tam):- tamanhoLista(T,NTam), Tam is NTam +  1.
