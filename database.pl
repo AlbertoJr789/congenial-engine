@@ -66,6 +66,7 @@ motivoProblema('falha_no_disco_rigido_ou_SSD',Prob,Sol) :- problema_hdssd(Prob),
 motivoProblema('falta_de_espaco_no_disco_rigido',Prob,Sol) :- problema_hdssd_cheio(Prob), solucao_problema(Prob,Sol).
 
 motivoProblema('virus_ou_malware_no_computador',Prob,Sol) :- problema_hdssd(Prob), solucao_problema(Prob,Sol).
+motivoProblema('virus_ou_malware_no_computador',Prob,Sol) :- problema_virus(Prob), solucao_problema(Prob,Sol).
 
 motivoProblema('som_nao_funcionando_no_computador',Prob,Sol) :- problema_som(Prob), solucao_problema(Prob,Sol).
 
@@ -125,7 +126,7 @@ problema_impressora('cartucho_entupido_ou_vazio').
 problema_impressora('cartucho_queimado').
 problema_impressora('spooler_de_impressao_com_problemas').
 
-problema_computador_hora('bateria_da_placa_mae_descarregada').
+problema_computador_hora('horario_atrasado_ou_adiantado').
 
 problema_computador_internet('cabo_com_problema_ou_sem_sinal_wi_fi').
 problema_computador_internet('provedor_sem_internet').
@@ -207,7 +208,7 @@ solucao_problema('computador_com_virus',Sol) :- Sol = 'Instale um antivirus ou f
 solucao_problema('caixas_de_som_nao_funciona',Sol) :- Sol = 'Verifique se as caixas de som estao conectados corretamente, ou se os drivers de som estão instalados'.
 solucao_problema('fones_de_ouvido_nao_funciona',Sol) :- Sol = 'Verifique se o fone de ouvido esta conectado corretamente, ou se os drivers do fone/som estão instalados'.
 solucao_problema('tela_piscando_ou_tremendo',Sol) :- Sol = 'Troque o monitor, ou verifique se o monitor esta com os leds estao funcionando, ou se ele tem algum outro componente estragado.'.
-
+solucao_problema('horario_atrasado_ou_adiantado',Sol) :- Sol = 'Troque o horario nas configuracoes'.
 
 /* -------------------------------------------------------------------- */
 
